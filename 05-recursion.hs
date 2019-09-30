@@ -14,8 +14,11 @@ power x y
 -- try to use a where clause
 fib :: (Num a, Eq a) => a -> [a]
 fib 0 = [0]
-fib 1 = [1]
-fib x = (fib (x-2) !! 0 + fib (x-1) !! 0) : fib (x-1)
+fib 1 = [1, 0]
+fib x = ( secondBefore + firstBefore) : fib (x-1)
+    where secondBefore = head $ fib (x-2)
+          firstBefore = head $ fib (x-1)
+          
 
 -- This is not recursive, but have a go anyway.
 -- Create a function which takes two parameters, a number and a step
@@ -23,8 +26,11 @@ fib x = (fib (x-2) !! 0 + fib (x-1) !! 0) : fib (x-1)
 -- Confused? Some examples: stepReverseSign 6 2 = -8
 --			    stepReverseSign -3 1 = 4
 --			    stepReverseSign 1 2 = -3
--- stepReverseSign :: (Fractional a, Ord a) => a -> a -> a
--- stepReverseSign a = undefined
+stepReverseSign :: (Fractional a, Ord a) => a -> a -> a
+stepReverseSign a s
+    | a < 0     = (-(a-s))
+    | a == 0     = s             -- right??
+    | otherwise = (-(a+s))
 
 {- Lets calculate pi.
  - The Leibniz formula for pi (http://en.wikipedia.org/wiki/Leibniz_formula_for_%CF%80)
@@ -57,9 +63,9 @@ fib x = (fib (x-2) !! 0 + fib (x-1) !! 0) : fib (x-1)
  - You may find the stepReverseSign function handy
  -}
 
--- piCalc :: (Fractional a, Integral b, Ord a) => a -> (a, b)
--- piCalc a = undefined
+piCalc :: (Fractional a, Integral b, Ord a) => a -> (a, b)
+piCalc a = undefined
 
--- piCalc' :: (Ord a, Fractional a, Integral b) => a -> a -> a -> b -> (a, b)
--- piCalc' w x y z = undefined
+piCalc' :: (Ord a, Fractional a, Integral b) => a -> a -> a -> b -> (a, b)
+piCalc' w x y z = undefined
 
