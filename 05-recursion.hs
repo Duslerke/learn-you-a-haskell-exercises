@@ -73,5 +73,18 @@ piCalc' w x y z
     where newTerm = (-1)^(mod z 2) * 4/w
           currentPi = x + newTerm
 
+-- you don't relly need the 'w', because you can get it from 'z' anyway.
+
+piCalc' :: (Fractional a, Integral b, Ord a) => a -> (a, b)
+piCalc' a = piCalc' 0 a 0
+
+piCalc'' :: (Ord a, Fractional a, Integral b) => a -> a -> a -> b -> (a, b)
+piCalc'' x y z
+    | newTermAbs < y    = (x, z)
+    | otherwise         = piCalc' currentPi y (z+1)
+    where newTermAbs = 4/(1 + 2*z)
+          newTerm = (-1)^(mod z 2) * newTermAbs
+          currentPi = x + newTerm
+
 
 
