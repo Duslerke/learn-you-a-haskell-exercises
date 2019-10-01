@@ -64,8 +64,14 @@ stepReverseSign a s
  -}
 
 piCalc :: (Fractional a, Integral b, Ord a) => a -> (a, b)
-piCalc a = undefined
+piCalc a = piCalc' 1 0 a 0
 
 piCalc' :: (Ord a, Fractional a, Integral b) => a -> a -> a -> b -> (a, b)
-piCalc' w x y z = undefined
+piCalc' w x y z
+    | 4/w < y    = (x, z)
+    | otherwise         = piCalc' (w+2) currentPi y (z+1)
+    where newTerm = (-1)^(mod z 2) * 4/w
+          currentPi = x + newTerm
+
+
 
